@@ -4,6 +4,7 @@ import { Observable, Subject, merge, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { NewsService } from './services/news.service';
+import { environment } from '../environments/environment';
 
 
 @Component({
@@ -16,9 +17,11 @@ export class AppComponent implements OnInit, OnDestroy {
   public sources: Array<any>;
   public news: Array<any>
   public group: FormGroup;
+
   protected _news$: Subscription;
   protected _sources$: Subscription;
   protected _valueChanges$: Subscription;
+
   constructor(private newsService: NewsService, private fb: FormBuilder) {
     this.group = fb.group({
       source: new FormControl('')
@@ -37,7 +40,11 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._getFormChanges();
     this._getSources();
-    this.group.controls['source'].setValue('bbc-news', { emitEvent: true });
+    this._getIitialNews();
+  }
+
+  protected _getIitialNews() {
+    this.group.controls['source'].setValue(environment.defaultSource, { emitEvent: true });
   }
 
   protected _getFormChanges() {

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiKey: "8dcbb23ded094e698f63675aa7844831"
+  apiKey: "8dcbb23ded094e698f63675aa7844831",
+  defaultSource: 'bbc-news'
 };
 
 /*
